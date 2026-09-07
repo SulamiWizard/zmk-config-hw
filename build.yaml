@@ -20,13 +20,13 @@
 ---
 include:
   # Settings reset - flash this first to clear stored Bluetooth name and settings
-  - board: nice_nano_v2
+  - board: nice_nano@2.0.0
     shield: settings_reset
     artifact-name: settings_reset_nice_nano
 
   # Corne keyboard halves with built-in OLED displays
-  - board: nice_nano_v2
+  - board: nice_nano@2.0.0
     shield: corne_hw_left
     snippet: studio-rpc-usb-uart
-  - board: nice_nano_v2
+  - board: nice_nano@2.0.0
     shield: corne_hw_right
