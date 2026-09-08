@@ -41,12 +41,6 @@
         };
     };
 
-    // Tap a &lt key, then quickly press-and-hold it again within 200ms to repeat
-    // the tap keycode (e.g. hold BSPC to keep deleting) instead of activating the layer.
-    &lt {
-        quick-tap-ms = <200>;
-    };
-
     keymap {
         compatible = "zmk,keymap";
 
@@ -160,4 +154,10 @@
             >;
         };
     };
+};
+
+// Tap a &lt key, then quickly press-and-hold it again within 200ms to repeat
+// the tap keycode (e.g. hold BSPC to keep deleting) instead of activating the layer.
+&lt {
+    quick-tap-ms = <200>;
 };
