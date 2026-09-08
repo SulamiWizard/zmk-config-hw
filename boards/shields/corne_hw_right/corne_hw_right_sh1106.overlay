@@ -16,6 +16,12 @@
     col-offset = <6>;
 };
 
+// Rows 2/3 use P0.10/P0.09, the nRF52840's NFC antenna pins. Without this,
+// they don't behave as plain GPIO and matrix reads on that row are unreliable.
+&uicr {
+    nfct-pins-as-gpios;
+};
+
 &kscan0 {
     row-gpios = <&gpio1 13 GPIO_ACTIVE_HIGH>,  /* Row 0 = P1.13 */
                 <&gpio1 11 GPIO_ACTIVE_HIGH>,  /* Row 1 = P1.11 */
