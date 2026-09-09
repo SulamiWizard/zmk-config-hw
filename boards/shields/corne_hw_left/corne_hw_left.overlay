@@ -14,6 +14,12 @@
     };
 };
 
+// Columns 4/5 use P0.10/P0.09, the nRF52840's NFC antenna pins. Without this,
+// they can't reliably support the GPIO wake-interrupt used to wake from deep sleep.
+&uicr {
+    nfct-pins-as-gpios;
+};
+
 &kscan0 {
     row-gpios = <&gpio1 0  GPIO_ACTIVE_HIGH>,  /* D6 = P1.00 */
                 <&gpio0 11 GPIO_ACTIVE_HIGH>,  /* D7 = P0.11 */
