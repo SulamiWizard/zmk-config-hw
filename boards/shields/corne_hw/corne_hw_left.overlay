@@ -1,0 +1,37 @@
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include "corne_hw.dtsi"
+
+/ {
+    chosen {
+        zmk,kscan = &kscan0;
+    };
+
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio-matrix";
+        wakeup-source;
+        diode-direction = "row2col";
+
+        row-gpios = <&gpio1 0  GPIO_ACTIVE_HIGH>,  /* D6 = P1.00 */
+                    <&gpio0 11 GPIO_ACTIVE_HIGH>,  /* D7 = P0.11 */
+                    <&gpio1 4  GPIO_ACTIVE_HIGH>,  /* D8 = P1.04 */
+                    <&gpio1 6  GPIO_ACTIVE_HIGH>;  /* D9 = P1.06 */
+
+        col-gpios = <&gpio0 2  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  /* Col 0 = P0.02 */
+                    <&gpio1 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  /* Col 1 = P1.15 */
+                    <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  /* Col 2 = P1.13 */
+                    <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  /* Col 3 = P1.11 */
+                    <&gpio0 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  /* Col 4 = P0.10 */
+                    <&gpio0 9  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;  /* Col 5 = P0.09 */
+    };
+};
+
+// Columns 4/5 use P0.10/P0.09, the nRF52840's NFC antenna pins. Without this,
+// they can't reliably support the GPIO wake-interrupt used to wake from deep sleep.
+&uicr {
+    nfct-pins-as-gpios;
+};

@@ -1,0 +1,45 @@
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include "corne_hw.dtsi"
+
+&default_transform {
+    col-offset = <6>;
+};
+
+&five_column_transform {
+    col-offset = <6>;
+};
+
+/ {
+    chosen {
+        zmk,kscan = &kscan0;
+    };
+
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio-matrix";
+        wakeup-source;
+        diode-direction = "row2col";
+
+        row-gpios = <&gpio1 13 GPIO_ACTIVE_HIGH>,  /* Row 0 = P1.13 (as physically wired) */
+                    <&gpio1 11 GPIO_ACTIVE_HIGH>,  /* Row 1 = P1.11 (as physically wired) */
+                    <&gpio0 10 GPIO_ACTIVE_HIGH>,  /* Row 2 = P0.10 */
+                    <&gpio0 9  GPIO_ACTIVE_HIGH>;  /* Row 3 = P0.09 */
+
+        col-gpios = <&gpio1 6  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  /* Col 0 = P1.06 */
+                    <&gpio1 4  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  /* Col 1 = P1.04 */
+                    <&gpio0 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  /* Col 2 = P0.11 */
+                    <&gpio1 0  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  /* Col 3 = P1.00 */
+                    <&gpio0 24 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,  /* Col 4 = P0.24 */
+                    <&gpio0 22 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;  /* Col 5 = P0.22 */
+    };
+};
+
+// Rows 2/3 use P0.10/P0.09, the nRF52840's NFC antenna pins. Without this,
+// they don't behave as plain GPIO and matrix reads on that row are unreliable.
+&uicr {
+    nfct-pins-as-gpios;
+};

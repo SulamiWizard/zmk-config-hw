@@ -1,0 +1,40 @@
+# The dongle is the split central; both halves are peripherals.
+
+if SHIELD_CORNE_HW_DONGLE
+
+config ZMK_KEYBOARD_NAME
+    default "Baikal"
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
+config ZMK_SPLIT
+    default y
+
+# Left and right halves
+config ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS
+    default 2
+
+# 2 peripherals + 5 host BT profiles
+config BT_MAX_CONN
+    default 7
+
+config BT_MAX_PAIRED
+    default 7
+
+# The MDK dongle's UF2 bootloader loads apps at 0x1000, which is where the
+# Zephyr board already links them, so we only need the .uf2 output.
+config BUILD_OUTPUT_UF2
+    default y
+
+endif
+
+if SHIELD_CORNE_HW_LEFT || SHIELD_CORNE_HW_RIGHT
+
+config ZMK_SPLIT
+    default y
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    default n
+
+endif

@@ -1,14 +1,14 @@
 file_format: "1"
-id: corne_hw_right
-name: Baikal Right
+id: corne_hw
+name: Baikal
 type: shield
 url: https://github.com/foostan/crkbd
 requires: [pro_micro]
-exposes: [i2c_oled]
 features:
   - keys
-  - display
   - sleep
   - studio
 siblings:
   - corne_hw_left
+  - corne_hw_right
+  - corne_hw_dongle
