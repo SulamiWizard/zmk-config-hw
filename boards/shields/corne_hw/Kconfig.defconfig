@@ -22,11 +22,6 @@ config BT_MAX_CONN
 config BT_MAX_PAIRED
     default 7
 
-# The MDK dongle's UF2 bootloader loads apps at 0x1000, which is where the
-# Zephyr board already links them, so we only need the .uf2 output.
-config BUILD_OUTPUT_UF2
-    default y
-
 endif
 
 if SHIELD_CORNE_HW_LEFT || SHIELD_CORNE_HW_RIGHT
@@ -36,5 +31,15 @@ config ZMK_SPLIT
 
 config ZMK_SPLIT_ROLE_CENTRAL
     default n
+
+endif
+
+# config/nrf52840_mdk_usb_dongle.conf sets this board up the way ZMK's own
+# board variants are (BLE/USB, flash settings, UF2), so declare it compatible.
+# Without this, ZMK's GitHub workflow fails its "board without ZMK compat" step.
+if BOARD_NRF52840_MDK_USB_DONGLE
+
+config ZMK_BOARD_COMPAT
+    default y
 
 endif

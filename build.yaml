@@ -25,7 +25,6 @@ include:
     artifact-name: settings_reset_nice_nano
   - board: nrf52840_mdk_usb_dongle
     shield: settings_reset
-    cmake-args: -DCONFIG_BUILD_OUTPUT_UF2=y
     artifact-name: settings_reset_dongle
 
   # Dongle (split central, plugged into the computer)
